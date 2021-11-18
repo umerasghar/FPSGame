@@ -6,6 +6,10 @@ public class AudioManager : Singleton<AudioManager>
 {
     public SoundComponents gameSounds;
     private AudioSource audioSource;
+
+   // [HideInInspector]
+    public AudioSource AudioSource { get => audioSource; set => audioSource = value; }
+
     private void Awake()
     {
         DontDestroyOnLoad(Instance);
@@ -13,19 +17,20 @@ public class AudioManager : Singleton<AudioManager>
     // Start is called before the first frame update
     void Start()
     {
-        audioSource = this.gameObject.GetComponent<AudioSource>();
+        AudioSource = this.gameObject.GetComponent<AudioSource>();
         PlayBackGroundMusic();   
     }
     public void PlayBackGroundMusic()
     {
-        audioSource.loop = true;
-        audioSource.clip = gameSounds.GameBGMusic;
-        audioSource.Play();
+        AudioSource.loop = true;
+        AudioSource.clip = gameSounds.GameBGMusic;
+        AudioSource.Play();
     }
     public void ButtonClick()
     {
-        audioSource.loop = false;
-        audioSource.PlayOneShot(gameSounds.ButtonClick);
+        AudioSource.loop = false;
+        AudioSource.PlayOneShot(gameSounds.ButtonClick);
     }
+
 
 }

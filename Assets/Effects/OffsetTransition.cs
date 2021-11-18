@@ -14,4 +14,9 @@ public class OffsetTransition : MonoBehaviour
         float offset = Time.time * scrollSpeed;
         rend.material.SetTextureOffset("_MainTex", new Vector2(offset, offset));
     }
+
+    public void ranajee()
+    {
+        Debug.Log("Ki hall ae");
+    }
 }
