@@ -10,6 +10,11 @@ public class Pistol : IWeapon
         throw new System.NotImplementedException();
     }
 
+    public void ShortAimSight(bool can)
+    {
+        throw new NotImplementedException();
+    }
+
     public void ShowFireEffect()
     {
         throw new System.NotImplementedException();

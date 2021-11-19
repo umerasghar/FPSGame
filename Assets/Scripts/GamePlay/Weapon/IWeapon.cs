@@ -7,4 +7,6 @@ public interface IWeapon
     void PlayFireSound();
   void ShowFireEffect();
     void UpdateBullets();
+    void ShortAimSight(bool can);
 }
+

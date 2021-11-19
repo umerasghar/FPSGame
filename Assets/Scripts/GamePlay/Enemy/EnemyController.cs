@@ -2,11 +2,10 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
-
+public enum EnemyState { Walk, Attack, Dead }
 public class EnemyController : MonoBehaviour
 {
     private NavMeshAgent agent;
-    
     public GameObject targetPlayer;
     bool IsAttack;
     int index = 0;
@@ -35,16 +34,33 @@ public class EnemyController : MonoBehaviour
             agent.destination = targetPlayer.transform.position;
         if (IsAttack)
         {
-            gameObject.GetComponent<Animator>().SetInteger("state", 1);
+            ChangeState(EnemyState.Attack);
         }
         else
         {
-            gameObject.GetComponent<Animator>().SetInteger("state", 0);
+            ChangeState(EnemyState.Walk);
         }
         dist = Vector3.Distance(targetPlayer.transform.position, this.transform.position);
-        Debug.Log(dist);
-
        
+    }
+    public void FollowPlayer(bool can)
+    {
+        if (can)
+        {
+            agent.isStopped = false;
+        }
+        else
+        {
+            agent.isStopped = true;
+        }
+    }
+    public bool CanAttack()
+    {
+        return IsAttack;
+    }
+    public void ChangeState(EnemyState state)
+    {
+        gameObject.GetComponent<Animator>().SetInteger("state", (int)state);
     }
 
 }

@@ -15,8 +15,5 @@ public class OffsetTransition : MonoBehaviour
         rend.material.SetTextureOffset("_MainTex", new Vector2(offset, offset));
     }
 
-    public void ranajee()
-    {
-        Debug.Log("Ki hall ae");
-    }
+
 }
