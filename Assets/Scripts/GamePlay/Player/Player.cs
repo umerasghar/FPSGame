@@ -6,6 +6,7 @@ public class Player : MonoBehaviour
 {
     public PlayerController controller;
     public CharacterBase characterProperties;
+  //  bool triggerOnce;
     //public void ApplyDamage(float hitPoint, IDamage objectToDamage)
     //{
     //    objectToDamage.TakeDamage(hitPoint);
@@ -28,6 +29,21 @@ public class Player : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
+        if (characterProperties.isDead)
+        {
+            GameManager.Instance.gameOverPanel.SetActive(true);
+            EventTriggers.onPlayerDead();
+            characterProperties.isDead = false;
+        }
     }
+    //void OnCollisionEnter(Collision collider)
+    //{
+    //    if (characterProperties.playerType == CharacterBase.CharacterType.Player)
+    //    {
+    //        if (collider.gameObject.tag == "Enemy")
+    //        {
+    //            characterProperties.ApplyDamage(collider.gameObject.GetComponent<Enemy>().damagePoint, this.gameObject.GetComponent<IDamage>());
+    //        }
+    //    }
+    //}
 }

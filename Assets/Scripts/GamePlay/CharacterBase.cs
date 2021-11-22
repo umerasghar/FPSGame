@@ -31,10 +31,6 @@ public class CharacterBase: MonoBehaviour, IDamage
 
         }
 
-
-
-
-
     }
 
     public void ApplyDamage(float hitPoint, IDamage objectToDamage)
@@ -44,5 +40,16 @@ public class CharacterBase: MonoBehaviour, IDamage
     public void Update()
     {
 
+    }
+    void OnCollisionEnter(Collision collider)
+    {
+        if (playerType == CharacterType.Player)
+        {
+            if (collider.gameObject.tag == "Enemy")
+            {
+              
+               ApplyDamage(collider.gameObject.transform.root.gameObject.GetComponent<Enemy>().damagePoint, this.gameObject.GetComponent<IDamage>());
+            }
+        }
     }
 }

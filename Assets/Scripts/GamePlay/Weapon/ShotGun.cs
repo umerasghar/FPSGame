@@ -10,6 +10,11 @@ public class ShotGun : IWeapon
         throw new System.NotImplementedException();
     }
 
+    public void PlayReloadSound()
+    {
+        throw new NotImplementedException();
+    }
+
     public void ShortAimSight(bool can)
     {
         throw new NotImplementedException();

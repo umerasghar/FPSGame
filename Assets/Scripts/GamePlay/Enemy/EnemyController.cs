@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
+
 public enum EnemyState { Walk, Attack, Dead }
 public class EnemyController : MonoBehaviour
 {
@@ -13,9 +14,13 @@ public class EnemyController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        EventTriggers.onPlayerDead += ShowGameOver;
         agent = this.GetComponent<NavMeshAgent>();
     }
-
+    private void OnDisable()
+    {
+        EventTriggers.onPlayerDead -= ShowGameOver;
+    }
     // Update is called once per frame
     void Update()
     {
@@ -53,6 +58,10 @@ public class EnemyController : MonoBehaviour
         {
             agent.isStopped = true;
         }
+    }
+    public void ShowGameOver()
+    {
+        agent.isStopped = true;
     }
     public bool CanAttack()
     {

@@ -23,6 +23,7 @@ public class WeaponBase : MonoBehaviour, IWeapon
 	public ParticleSystem muzzleFalsh;
 	[Header("SFX")]
 	public AudioClip fireSound;
+	public AudioClip reloadSound;
 	#region
 	[HideInInspector]
 	public int loadedBullets = 0;
@@ -93,11 +94,16 @@ public class WeaponBase : MonoBehaviour, IWeapon
 
     public void Update()
     {
-        if (loadedBullets == 0)
-        {
-			canFire = false;
-        }
+   //     if (loadedBullets == 0)
+   //     {
+			//canFire = false;
+   //     }
     }
+
+    public void PlayReloadSound()
+    {
+		Camera.main.GetComponent<AudioSource>().PlayOneShot(reloadSound);
+	}
     #endregion
 
 }

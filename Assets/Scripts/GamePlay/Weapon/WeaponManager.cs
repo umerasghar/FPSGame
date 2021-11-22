@@ -52,14 +52,16 @@ public class WeaponManager : Singleton<WeaponManager>
         {
            
             RaycastHit hit;
+        //    int layerMask = 1 << LayerMask.NameToLayer("IgnoreRaycast");
+          //  Debug.Log(layerMask);
             Vector2 rayCastOrigin = new Vector2(Screen.width / 2, Screen.height / 2);
             Ray ray = Camera.main.ScreenPointToRay(rayCastOrigin);
-            if (Physics.Raycast(ray.origin, ray.direction, out hit))
+            if (Physics.Raycast(ray.origin, ray.direction,out hit))
             {
                 if (hit.collider.gameObject.tag == "Enemy")
                 {
 
-                    enemyInteractable = hit.collider.gameObject.GetComponent<IDamage>();
+                    enemyInteractable = hit.collider.gameObject.transform.root.gameObject.GetComponent<IDamage>();
                     playerInteractable.ApplyDamage(selectedWeapon.damage, enemyInteractable);
                 }
             }
@@ -79,7 +81,7 @@ public class WeaponManager : Singleton<WeaponManager>
     }
     IEnumerator WaitForReload()
     {
-        
+        selectedWeapon.PlayReloadSound();
             yield return new WaitForSeconds(0.5f);
         selectedWeapon.UpdateBullets();
         UpdateBulletsUI();

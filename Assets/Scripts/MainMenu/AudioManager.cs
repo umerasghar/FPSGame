@@ -31,6 +31,10 @@ public class AudioManager : Singleton<AudioManager>
         AudioSource.loop = false;
         AudioSource.PlayOneShot(gameSounds.ButtonClick);
     }
+    public void StopPlay()
+    {
+        AudioSource.Stop();
+    }
 
 
 }

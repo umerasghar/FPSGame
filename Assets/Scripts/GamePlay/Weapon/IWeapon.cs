@@ -5,6 +5,7 @@ using UnityEngine;
 public interface IWeapon
 {
     void PlayFireSound();
+    void PlayReloadSound();
   void ShowFireEffect();
     void UpdateBullets();
     void ShortAimSight(bool can);

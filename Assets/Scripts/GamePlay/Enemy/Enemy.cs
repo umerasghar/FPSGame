@@ -8,6 +8,7 @@ public class Enemy : MonoBehaviour
     public CharacterBase characterProperties;
     public Transform[] spawnPoints;
     private int spawnPointsLength;
+    public float damagePoint;
     //public void ApplyDamage(float hitPoint, IDamage objectToDamage)
     //{
     //    objectToDamage.TakeDamage(hitPoint);
@@ -27,6 +28,7 @@ public class Enemy : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+    
         spawnPointsLength = spawnPoints.Length;
     }
 
@@ -37,7 +39,6 @@ public class Enemy : MonoBehaviour
         if (characterProperties.isDead)
         {
             characterProperties.isDead = false;
-            Debug.Log("What the shit");
             controller.ChangeState(EnemyState.Dead);
             controller.FollowPlayer(false);
        
@@ -62,4 +63,5 @@ public class Enemy : MonoBehaviour
         characterProperties.healthBarCounter.text = "50";
         characterProperties.healthBar.value = 50;
     }
+
 }
