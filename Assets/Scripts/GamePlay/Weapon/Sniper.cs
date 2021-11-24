@@ -10,7 +10,7 @@ public class Sniper : IWeapon
         throw new System.NotImplementedException();
     }
 
-    public void PlayReloadSound()
+    public void ReloadAnimation()
     {
         throw new NotImplementedException();
     }

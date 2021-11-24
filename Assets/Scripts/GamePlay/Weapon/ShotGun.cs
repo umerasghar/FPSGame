@@ -10,7 +10,7 @@ public class ShotGun : IWeapon
         throw new System.NotImplementedException();
     }
 
-    public void PlayReloadSound()
+    public void ReloadAnimation()
     {
         throw new NotImplementedException();
     }

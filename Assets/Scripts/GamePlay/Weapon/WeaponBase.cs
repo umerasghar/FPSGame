@@ -78,7 +78,7 @@ public class WeaponBase : MonoBehaviour, IWeapon
 			canFire = true;
 			Debug.Log(canFire);
 		}
-        if (isReloading)
+        if (isReloading&&bulletsLeft!=0)
         {
 			
 			int bulletsNeeded = bulletsPerMag - loadedBullets;
@@ -87,6 +87,11 @@ public class WeaponBase : MonoBehaviour, IWeapon
             {
 				bulletsLeft -= bulletsNeeded;
 				loadedBullets += bulletsNeeded;
+            }
+            else
+            {
+				bulletsLeft = 0;
+				loadedBullets += bulletsLeft;
             }
 
         }
@@ -100,9 +105,11 @@ public class WeaponBase : MonoBehaviour, IWeapon
    //     }
     }
 
-    public void PlayReloadSound()
+    public void ReloadAnimation()
     {
 		Camera.main.GetComponent<AudioSource>().PlayOneShot(reloadSound);
+		animator.SetTrigger("Reload");
+
 	}
     #endregion
 

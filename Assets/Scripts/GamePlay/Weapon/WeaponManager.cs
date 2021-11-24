@@ -17,6 +17,7 @@ public class WeaponManager : Singleton<WeaponManager>
     public IWeapon interactble;
     private bool isShortAim = false;
     IDamage playerInteractable, enemyInteractable;
+    float readyToFire = 0;
     // Start is called before the first frame update
     void Start()
     {
@@ -37,7 +38,7 @@ public class WeaponManager : Singleton<WeaponManager>
         {
             selectedWeapon.ShortAimSight(false);
         }
-
+       // Fire();
         //if (Input.GetMouseButtonDown(0))
         //{
 
@@ -48,7 +49,7 @@ public class WeaponManager : Singleton<WeaponManager>
     public void Fire()
     {
    
-        if (!selectedWeapon.canFire)
+        if (!selectedWeapon.canFire&&Time.time>=readyToFire)
         {
            
             RaycastHit hit;
@@ -69,20 +70,25 @@ public class WeaponManager : Singleton<WeaponManager>
             selectedWeapon.ShowFireEffect();
             selectedWeapon.UpdateBullets();
             UpdateBulletsUI();
+            readyToFire = Time.time + selectedWeapon.fireRate;
+            Debug.Log(Time.time);
         }
         Debug.Log("canFire" + selectedWeapon.canFire);
 
     }
     public void Reload()
     {
-        selectedWeapon.isReloading = true;
-        selectedWeapon.canFire = true;
-        StartCoroutine(WaitForReload());
+        if (selectedWeapon.loadedBullets < selectedWeapon.startBullets)
+        {
+            selectedWeapon.isReloading = true;
+            selectedWeapon.canFire = true;
+            StartCoroutine(WaitForReload());
+        }
     }
     IEnumerator WaitForReload()
     {
-        selectedWeapon.PlayReloadSound();
-            yield return new WaitForSeconds(0.5f);
+        selectedWeapon.ReloadAnimation();
+            yield return new WaitForSeconds(4f);
         selectedWeapon.UpdateBullets();
         UpdateBulletsUI();
         selectedWeapon.canFire = false;

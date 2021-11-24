@@ -16,6 +16,7 @@ public class GameManager : Singleton<GameManager>
     // Start is called before the first frame update
     void Start()
     {
+        if(audioSource!=null)
         audioSource.StopPlay();
     }
 
@@ -26,10 +27,12 @@ public class GameManager : Singleton<GameManager>
     }
     public void BackToMenu()
     {
+        if(sceneManager!=null)
         sceneManager.LoadMainMenu();
     }
     public void Reload()
     {
-        sceneManager.ReloadScene();
+        if (sceneManager != null)
+            sceneManager.ReloadScene();
     }
 }
