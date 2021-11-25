@@ -6,7 +6,7 @@ public class Player : MonoBehaviour
 {
     public PlayerController controller;
     public CharacterBase characterProperties;
-    Rigidbody playerRB;
+
   //  bool triggerOnce;
     //public void ApplyDamage(float hitPoint, IDamage objectToDamage)
     //{
@@ -24,7 +24,7 @@ public class Player : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        playerRB = this.gameObject.GetComponent<Rigidbody>();
+        
     }
 
     // Update is called once per frame
@@ -33,11 +33,13 @@ public class Player : MonoBehaviour
         if (characterProperties.isDead)
         {
             GameManager.Instance.gameOverPanel.SetActive(true);
-            playerRB.isKinematic = true;
+            controller.playerRB.isKinematic = true;
             EventTriggers.onPlayerDead();
             characterProperties.isDead = false;
         }
+
     }
+
     //void OnCollisionEnter(Collision collider)
     //{
     //    if (characterProperties.playerType == CharacterBase.CharacterType.Player)

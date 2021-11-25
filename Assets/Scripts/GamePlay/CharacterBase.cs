@@ -49,6 +49,7 @@ public class CharacterBase: MonoBehaviour, IDamage
             {
               
                ApplyDamage(collider.gameObject.transform.root.gameObject.GetComponent<Enemy>().damagePoint, this.gameObject.GetComponent<IDamage>());
+                BloodSplatterEffect.instance.BloodSplatter();
             }
         }
     }

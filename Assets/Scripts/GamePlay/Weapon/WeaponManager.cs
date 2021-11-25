@@ -64,6 +64,14 @@ public class WeaponManager : Singleton<WeaponManager>
 
                     enemyInteractable = hit.collider.gameObject.transform.root.gameObject.GetComponent<IDamage>();
                     playerInteractable.ApplyDamage(selectedWeapon.damage, enemyInteractable);
+                    CreateBlood(hit.point);
+                }
+                else
+                {
+                    HitImapactParticle(hit.point, hit.normal);
+                    GameObject bulletHole = Instantiate(selectedWeapon.bulletImpact, hit.point, Quaternion.FromToRotation(Vector3.forward, hit.normal));
+                    bulletHole.transform.SetParent(hit.transform);
+                    Destroy(bulletHole, 10f);
                 }
             }
             selectedWeapon.PlayFireSound();
@@ -103,5 +111,16 @@ public class WeaponManager : Singleton<WeaponManager>
     {
         isShortAim = !isShortAim;
     }
+    void CreateBlood(Vector3 pos)
+    {
+        GameObject blood = selectedWeapon.bloodEffect;
+        GameObject bloodEffect = Instantiate(blood, pos, new Quaternion(0, 0, 0, 0));
+        Destroy(bloodEffect, 3f);
+    }
 
+    void HitImapactParticle(Vector3 pos, Vector3 normal)
+    {
+        GameObject hitParticleEffect = Instantiate(selectedWeapon.hitParticle, pos, Quaternion.FromToRotation(Vector3.up, normal));
+        Destroy(hitParticleEffect, 1f);
+    }
 }

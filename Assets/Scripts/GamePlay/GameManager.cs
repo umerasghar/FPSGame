@@ -10,7 +10,7 @@ public class GameManager : Singleton<GameManager>
     AudioManager audioSource;
     private void Awake()
     {
-        sceneManager = GameObject.FindObjectOfType<SceneManager>();
+        sceneManager =FindObjectOfType<SceneManager>();
         audioSource = FindObjectOfType<AudioManager>();
     }
     // Start is called before the first frame update

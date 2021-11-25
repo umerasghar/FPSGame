@@ -21,6 +21,9 @@ public class WeaponBase : MonoBehaviour, IWeapon
 	public Transform shortAimTransform;
 	[Header("Effects")]
 	public ParticleSystem muzzleFalsh;
+	public GameObject bloodEffect;
+	public GameObject bulletImpact;
+	public GameObject hitParticle;
 	[Header("SFX")]
 	public AudioClip fireSound;
 	public AudioClip reloadSound;
@@ -111,6 +114,7 @@ public class WeaponBase : MonoBehaviour, IWeapon
 		animator.SetTrigger("Reload");
 
 	}
+
     #endregion
 
 }
