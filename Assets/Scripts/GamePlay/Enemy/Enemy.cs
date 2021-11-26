@@ -50,7 +50,7 @@ public class Enemy : MonoBehaviour
     {
  
         int point= Random.Range(0, spawnPointsLength);
-        this.gameObject.transform.position = spawnPoints[point].position;
+        this.gameObject.transform.localPosition = spawnPoints[point].localPosition;
         controller.FollowPlayer(true);
         controller.ChangeState(EnemyState.Walk);
         Reset();

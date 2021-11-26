@@ -20,7 +20,7 @@ public class PlayerController : MonoBehaviour
 	[HideInInspector]
 	public bool isGrounded=true;
 	[HideInInspector]
-	public bool canJump=true;
+	public bool canJump=false;
 	void Start()
 	{
 		fpsCam= Camera.main;
@@ -46,25 +46,25 @@ public class PlayerController : MonoBehaviour
 	}
     private void FixedUpdate()
     {
-		RaycastHit hit;
-		if (Physics.Raycast(gameObject.transform.position, Vector3.down, out hit, Mathf.Infinity))
+		//RaycastHit hit;
+		//if (Physics.Raycast(gameObject.transform.position, Vector3.down, out hit, Mathf.Infinity))
+		//{
+		//	Debug.DrawRay(gameObject.transform.position, Vector3.down * hit.distance, Color.red);
+		//	var floorDistance= Vector3.Distance(hit.collider.transform.position, gameObject.transform.position);
+		//	Debug.Log(floorDistance);
+  //          if (floorDistance < 1.5f)
+  //          {
+		//		isGrounded = true;
+  //          }
+		//}
+			if (isGrounded&&canJump)
 		{
-			Debug.DrawRay(gameObject.transform.position, Vector3.down * hit.distance, Color.red);
-			var floorDistance= Vector3.Distance(hit.collider.transform.position, gameObject.transform.position);
-			Debug.Log(floorDistance);
-            if (floorDistance < 1.5f)
-            {
-				isGrounded = true;
-            }
-		}
-			if (isGrounded)
-		{
-			if (canJump)
-			{
+			//if (canJump)
+			//{
 				playerRB.AddForce(Vector3.up * jumpForce);
 				isGrounded = false;
 				canJump = false;
-			}
+			//}
 		}
 	}
     void lookUpCamera()
@@ -74,7 +74,15 @@ public class PlayerController : MonoBehaviour
 	}
 	public void PlayerJump()
     {
-		canJump = !canJump;
+		canJump = true;
+	}
+    private void OnCollisionEnter(Collision collision)
+    {
+        if (collision.gameObject.CompareTag("Ground"))
+        {
+			isGrounded = true;
+			canJump = false;
+		}
     }
 
 }

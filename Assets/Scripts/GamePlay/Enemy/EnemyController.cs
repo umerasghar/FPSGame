@@ -24,7 +24,7 @@ public class EnemyController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (dist < 1.6f)
+        if (dist < 1.2f)
         {
             IsAttack = true;
 
