@@ -93,9 +93,10 @@ public class WeaponBase : MonoBehaviour, IWeapon
             }
             else
             {
-				bulletsLeft = 0;
+				
 				loadedBullets += bulletsLeft;
-            }
+				bulletsLeft = 0;
+			}
 
         }
     }

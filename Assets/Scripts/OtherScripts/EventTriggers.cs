@@ -5,7 +5,12 @@ using System;
 public class EventTriggers: Singleton<EventTriggers>
 {
     public delegate void ShowGameOver();
+    public delegate void ShowPlayerWin();
+    public delegate void ResetEnemy();
     public static ShowGameOver onPlayerDead;
+    public static ShowPlayerWin onPlayerWon;
+    public static ResetEnemy onEnemyReset;
+    
     private void Awake()
     {
         DontDestroyOnLoad(Instance);

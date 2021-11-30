@@ -12,7 +12,11 @@ public class SceneManager : Singleton<SceneManager>
     // Start is called before the first frame update
     void Start()
     {
-
+        GameManager manager= FindObjectOfType<GameManager>();
+        if (manager != null)
+        {
+            Destroy(manager.gameObject);
+        }
     }
 
     // Update is called once per frame

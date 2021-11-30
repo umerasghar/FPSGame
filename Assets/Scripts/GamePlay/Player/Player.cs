@@ -6,7 +6,8 @@ public class Player : MonoBehaviour
 {
     public PlayerController controller;
     public CharacterBase characterProperties;
-
+    [HideInInspector]
+    public int playerScore;
   //  bool triggerOnce;
     //public void ApplyDamage(float hitPoint, IDamage objectToDamage)
     //{
@@ -38,6 +39,13 @@ public class Player : MonoBehaviour
             characterProperties.isDead = false;
         }
 
+    }
+     public void ResetPlayerValues()
+    {
+        characterProperties.health = 100;
+      characterProperties.healthBarCounter.text = "100";
+   characterProperties.healthBar.value = 100;
+     playerScore = 0;
     }
 
     //void OnCollisionEnter(Collision collider)
