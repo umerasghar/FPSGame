@@ -34,6 +34,7 @@ public class Player : MonoBehaviour
         if (characterProperties.isDead)
         {
             GameManager.Instance.gameOverPanel.SetActive(true);
+            GameManager.Instance.activeLevel.levelFailed = true;
             controller.playerRB.isKinematic = true;
             EventTriggers.onPlayerDead();
             characterProperties.isDead = false;

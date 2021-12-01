@@ -55,6 +55,7 @@ public class Enemy : MonoBehaviour
             {
                 controller.playerReference.playerScore += 100;
                 GameManager.Instance.UpdateScore(controller.playerReference.playerScore);
+            }
 
                 if (!CheckLastEnemy())
                 {
@@ -63,7 +64,7 @@ public class Enemy : MonoBehaviour
                     spawnEffect.Play();
                     Invoke("ReSpawn", 2f);
                 }
-            }
+            
             
         }
 
@@ -102,6 +103,7 @@ public class Enemy : MonoBehaviour
     }
     private void Reset()
     {
+        EventTriggers.onPlayerWon += ShowPlayerWin;
         this.gameObject.transform.position = GameManager.Instance.activeLevel.enemySpawnPoints[spawnPoint].position;
         this.gameObject.SetActive(true);
         controller.FollowPlayer(true);
@@ -113,9 +115,9 @@ public class Enemy : MonoBehaviour
     {
       //  controller.ChangeState(EnemyState.Dead);
         characterProperties.isDead = true;
-        characterProperties.health = 50;
-        characterProperties.healthBarCounter.text = "50";
-        characterProperties.healthBar.value = 50;
+        //characterProperties.health = 50;
+        //characterProperties.healthBarCounter.text = "50";
+        //characterProperties.healthBar.value = 50;
         // controller.FollowPlayer(false);
     }
 

@@ -12,6 +12,8 @@ public class Levels
     public int levelScoreLimit;
     [HideInInspector]
     public bool levelClear;
+    [HideInInspector]
+    public bool levelFailed;
     public bool isLastLevel;
     public Transform playerPosition;
     [Header("SpawnPoints")]
