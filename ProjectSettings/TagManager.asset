@@ -19,7 +19,7 @@ TagManager:
   - WorldSpaceUI
   - IgnoreRaycast
   - IgnoreLight
-  - 
+  - PostProcessing
   - 
   - 
   - 
