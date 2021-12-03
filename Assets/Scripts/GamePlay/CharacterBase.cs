@@ -37,10 +37,10 @@ public class CharacterBase: MonoBehaviour, IDamage
     {
         objectToDamage.TakeDamage(hitPoint);
     }
-    public void Update()
-    {
+    //public void Update()
+    //{
 
-    }
+    //}
     void OnCollisionEnter(Collision collider)
     {
         if (playerType == CharacterType.Player)
@@ -49,8 +49,26 @@ public class CharacterBase: MonoBehaviour, IDamage
             {
               
                ApplyDamage(collider.gameObject.transform.root.gameObject.GetComponent<Enemy>().damagePoint, this.gameObject.GetComponent<IDamage>());
+                this.CheckCharacterDeath();
                 BloodSplatterEffect.instance.BloodSplatter();
+               
             }
+        }
+    }
+    public void CheckForDamage()
+    {
+
+    }
+    public void CheckCharacterDeath()
+    {
+        switch (playerType)
+        {
+            case CharacterType.Player:
+                this.GetComponent<Player>().OnPlayerHit();
+                break;
+            case CharacterType.Enemy:
+                this.GetComponent<Enemy>().OnEnemyHit();
+                break;
         }
     }
 }

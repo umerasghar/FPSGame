@@ -40,9 +40,37 @@ public class Enemy : MonoBehaviour
         EventTriggers.onPlayerWon -= ShowPlayerWin;
     }
     // Update is called once per frame
-    void Update()
-    {
+    //void Update()
+    //{
 
+    //    //if (characterProperties.isDead)
+    //    //{
+    //    //    characterProperties.isDead = false;
+    //    //    controller.ChangeState(EnemyState.Dead);
+    //    //    controller.FollowPlayer(false);
+
+
+    //    //    //StartCoroutine(GameManager.Instance.WaitForSpawn(2.8f));
+    //    //    if (!GameManager.Instance.activeLevel.levelClear)
+    //    //    {
+    //    //        controller.playerReference.playerScore += 100;
+    //    //        GameManager.Instance.UpdateScore(controller.playerReference.playerScore);
+    //    //    }
+
+    //    //        if (!CheckLastEnemy())
+    //    //        {
+    //    //            spawnPoint = Random.Range(0, GameManager.Instance.activeLevel.enemySpawnPoints.Length);
+    //    //            spawnEffect.transform.position = GameManager.Instance.activeLevel.enemySpawnPoints[spawnPoint].position;
+    //    //            spawnEffect.Play();
+    //    //            Invoke("ReSpawn", 2f);
+    //    //        }
+            
+            
+    //    //}
+
+    //}
+    public void OnEnemyHit()
+    {
         if (characterProperties.isDead)
         {
             characterProperties.isDead = false;
@@ -57,17 +85,16 @@ public class Enemy : MonoBehaviour
                 GameManager.Instance.UpdateScore(controller.playerReference.playerScore);
             }
 
-                if (!CheckLastEnemy())
-                {
-                    spawnPoint = Random.Range(0, GameManager.Instance.activeLevel.enemySpawnPoints.Length);
-                    spawnEffect.transform.position = GameManager.Instance.activeLevel.enemySpawnPoints[spawnPoint].position;
-                    spawnEffect.Play();
-                    Invoke("ReSpawn", 2f);
-                }
-            
-            
-        }
+            if (!CheckLastEnemy())
+            {
+                spawnPoint = Random.Range(0, GameManager.Instance.activeLevel.enemySpawnPoints.Length);
+                spawnEffect.transform.position = GameManager.Instance.activeLevel.enemySpawnPoints[spawnPoint].position;
+                spawnEffect.Play();
+                Invoke("ReSpawn", 2f);
+            }
 
+
+        }
     }
     public bool CheckLastEnemy()
     {

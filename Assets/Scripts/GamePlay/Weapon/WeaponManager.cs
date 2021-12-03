@@ -16,14 +16,14 @@ public class WeaponManager : Singleton<WeaponManager>
     public WeaponBase selectedWeapon;
     public IWeapon interactble;
     private bool isShortAim = false;
-    IDamage playerInteractable, enemyInteractable;
+    IDamage characterInteractable;
     float readyToFire = 0;
     // Start is called before the first frame update
     void Start()
     {
         currentWeaponIndex = (int)currentWeapon;
         selectedWeapon = playerWeapons[currentWeaponIndex];
-        playerInteractable = GameObject.FindGameObjectWithTag("Player").GetComponent<IDamage>();
+       // playerInteractable = GameObject.FindGameObjectWithTag("Player").GetComponent<IDamage>();
     }
 
     // Update is called once per frame
@@ -62,8 +62,10 @@ public class WeaponManager : Singleton<WeaponManager>
                 if (hit.collider.gameObject.tag == "Enemy")
                 {
 
-                    enemyInteractable = hit.collider.gameObject.transform.root.gameObject.GetComponent<IDamage>();
-                    playerInteractable.ApplyDamage(selectedWeapon.damage, enemyInteractable);
+                    characterInteractable = hit.collider.gameObject.transform.root.gameObject.GetComponent<IDamage>();
+                    characterInteractable.TakeDamage(selectedWeapon.damage);
+                   // playerInteractable.ApplyDamage(selectedWeapon.damage, enemyInteractable);
+                    characterInteractable.CheckCharacterDeath();
                     CreateBlood(hit.point);
                 }
                 else
@@ -71,7 +73,7 @@ public class WeaponManager : Singleton<WeaponManager>
                     HitImapactParticle(hit.point, hit.normal);
                     GameObject bulletHole = Instantiate(selectedWeapon.bulletImpact, hit.point, Quaternion.FromToRotation(Vector3.forward, hit.normal));
                     bulletHole.transform.SetParent(hit.transform);
-                    Destroy(bulletHole, 10f);
+                    Destroy(bulletHole, 7f);
                 }
             }
             selectedWeapon.PlayFireSound();

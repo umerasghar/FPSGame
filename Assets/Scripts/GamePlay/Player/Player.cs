@@ -29,7 +29,26 @@ public class Player : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
+    //void Update()
+    //{
+    //    if (characterProperties.isDead)
+    //    {
+    //        GameManager.Instance.gameOverPanel.SetActive(true);
+    //        GameManager.Instance.activeLevel.levelFailed = true;
+    //        controller.playerRB.isKinematic = true;
+    //        EventTriggers.onPlayerDead();
+    //        characterProperties.isDead = false;
+    //    }
+
+    //}
+     public void ResetPlayerValues()
+    {
+        characterProperties.health = 100;
+      characterProperties.healthBarCounter.text = "100";
+   characterProperties.healthBar.value = 100;
+     playerScore = 0;
+    }
+    public void OnPlayerHit()
     {
         if (characterProperties.isDead)
         {
@@ -41,14 +60,6 @@ public class Player : MonoBehaviour
         }
 
     }
-     public void ResetPlayerValues()
-    {
-        characterProperties.health = 100;
-      characterProperties.healthBarCounter.text = "100";
-   characterProperties.healthBar.value = 100;
-     playerScore = 0;
-    }
-
     //void OnCollisionEnter(Collision collider)
     //{
     //    if (characterProperties.playerType == CharacterBase.CharacterType.Player)

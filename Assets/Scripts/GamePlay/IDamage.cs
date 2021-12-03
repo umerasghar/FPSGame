@@ -6,4 +6,6 @@ public interface IDamage
 {
     void TakeDamage(float hitPoint);
     void ApplyDamage(float hitPoint,IDamage objectToDamage);
+
+    void CheckCharacterDeath();
 }
