@@ -18,6 +18,10 @@ public class WeaponManager : Singleton<WeaponManager>
     private bool isShortAim = false;
     IDamage characterInteractable;
     float readyToFire = 0;
+    public static bool isLastKill;
+    Transform lastBullet;
+    Transform bulletCamera;
+    Vector3 cameraOffset;
     // Start is called before the first frame update
     void Start()
     {
@@ -45,7 +49,15 @@ public class WeaponManager : Singleton<WeaponManager>
         //    Fire();
         //}
     }
-
+    private void FixedUpdate()
+    {
+        if (isLastKill)
+        {
+           
+            lastBullet.Translate(Vector3.forward * Time.deltaTime * 2f);
+            bulletCamera.localPosition = lastBullet.localPosition + cameraOffset;
+        }
+    }
     public void Fire()
     {
    
@@ -124,5 +136,21 @@ public class WeaponManager : Singleton<WeaponManager>
     {
         GameObject hitParticleEffect = Instantiate(selectedWeapon.hitParticle, pos, Quaternion.FromToRotation(Vector3.up, normal));
         Destroy(hitParticleEffect, 1f);
+    }
+    public void BulletTimeEffect(bool show)
+    {
+        if (show)
+        {
+            var bullet = Instantiate(selectedWeapon.bulletPrefab);
+            bullet.transform.parent = selectedWeapon.bulletInstantiatePoint.parent;
+            bullet.transform.localPosition = selectedWeapon.bulletInstantiatePoint.localPosition;
+            lastBullet = bullet.transform;
+            selectedWeapon.bulletTimeCamera.transform.parent = selectedWeapon.bulletTimeCameraPos.parent;
+            bulletCamera = selectedWeapon.bulletTimeCamera.transform;
+            bulletCamera.localPosition = selectedWeapon.bulletTimeCameraPos.localPosition;
+            cameraOffset = bulletCamera.localPosition-lastBullet.localPosition;
+            selectedWeapon.bulletTimeCamera.depth = 1;
+            isLastKill = true;
+        }
     }
 }

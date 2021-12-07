@@ -19,6 +19,10 @@ public class WeaponBase : MonoBehaviour, IWeapon
 	public Animator animator;
 	public Transform weaponTransform;
 	public Transform shortAimTransform;
+	public GameObject bulletPrefab;
+	public Transform bulletTimeCameraPos;
+	public Transform bulletInstantiatePoint;
+	public Camera bulletTimeCamera;
 	[Header("Effects")]
 	public ParticleSystem muzzleFalsh;
 	public GameObject bloodEffect;
@@ -101,13 +105,13 @@ public class WeaponBase : MonoBehaviour, IWeapon
         }
     }
 
-    public void Update()
-    {
-   //     if (loadedBullets == 0)
-   //     {
-			//canFire = false;
-   //     }
-    }
+   // public void Update()
+   // {
+   ////     if (loadedBullets == 0)
+   ////     {
+			////canFire = false;
+   ////     }
+   // }
 
     public void ReloadAnimation()
     {
