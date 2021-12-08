@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Playables;
 using UnityEngine.UI;
 
 public enum LoadLevel {Hallway,Garveyard}
@@ -21,13 +22,19 @@ public class GameManager : MonoBehaviour
     [Header("Gameplay Refs")]
     public Transform mainPlayer;
     public Levels[] levelReferences;
+    [Header("In-Game Managers")]
+    public GameObject weaponManager;
+    public GameObject eventManager;
     [Header("Particle Systems")]
     public ParticleSystem zombieSpawnEffect;
+    [Header("TimeLine Refs")]
+    public PlayableDirector playableDirector;
     [HideInInspector]
     public Levels activeLevel;
     int setLevelIndex;
     private void Awake()
     {
+        Debug.Log("AwakeCalled");
         Instance = this;
         if (PlayerPrefs.HasKey("CurrentLevel"))
         {
@@ -40,11 +47,25 @@ public class GameManager : MonoBehaviour
 
         sceneManager =FindObjectOfType<SceneManager>();
         audioSource = FindObjectOfType<AudioManager>();
+       
 
     }
+    private void OnEnable()
+    {
+        playableDirector.stopped += PlayableDirector_stopped;
+    }
+    private void OnDisable()
+    {
+        playableDirector.stopped -= PlayableDirector_stopped;
+    }
+    private void PlayableDirector_stopped(PlayableDirector obj)
+    {
+        Debug.Log("Stopped");
+    }
+
     // Start is called before the first frame update
     void Start()
-    {     
+    {    
         switch (setLevelIndex)
         {
             case 0:
@@ -54,10 +75,23 @@ public class GameManager : MonoBehaviour
                 currentLevel = LoadLevel.Garveyard;
                 break;
         }
+        if (currentLevel == LoadLevel.Hallway)
+        {
+            playableDirector.Play();
+        }
+        else
+        {
+            ReInstantiateValues();
+            // playableDirector.Play();
+
+        }
+        if (audioSource != null)
+            audioSource.StopPlay();
+        // Invoke("SpawnEnemies", 1f);
+    }
+    public void InitiateManager()
+    {
         ReInstantiateValues();
-        if(audioSource!=null)
-        audioSource.StopPlay();
-       // Invoke("SpawnEnemies", 1f);
     }
     void ReInstantiateValues()
     {
@@ -75,10 +109,11 @@ public class GameManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+       
     }
     public void BackToMenu()
     {
+       
         if(sceneManager!=null)
         sceneManager.LoadMainMenu();
     }

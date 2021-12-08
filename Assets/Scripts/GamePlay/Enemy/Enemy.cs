@@ -102,7 +102,7 @@ public class Enemy : MonoBehaviour
         int scoreLimit = GameManager.Instance.activeLevel.levelScoreLimit;
         if (currentScore+100 == scoreLimit||currentScore==scoreLimit)
         {
-            WeaponManager.Instance.BulletTimeEffect(true);
+          //  WeaponManager.Instance.BulletTimeEffect(true);
             return true;
         }
         else
