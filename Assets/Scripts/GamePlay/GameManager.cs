@@ -28,10 +28,13 @@ public class GameManager : MonoBehaviour
     [Header("Particle Systems")]
     public ParticleSystem zombieSpawnEffect;
     [Header("TimeLine Refs")]
-    public PlayableDirector playableDirector;
+    public TimeLineComponents[] levelCutscenes;
+    public Transform cineCameraTransform;
+    public GameObject playableCharacterPos;
     [HideInInspector]
     public Levels activeLevel;
     int setLevelIndex;
+    TimeLineComponents currentCutScene;
     private void Awake()
     {
         Debug.Log("AwakeCalled");
@@ -47,21 +50,22 @@ public class GameManager : MonoBehaviour
 
         sceneManager =FindObjectOfType<SceneManager>();
         audioSource = FindObjectOfType<AudioManager>();
+        currentCutScene = levelCutscenes[setLevelIndex];
        
 
     }
-    private void OnEnable()
-    {
-        playableDirector.stopped += PlayableDirector_stopped;
-    }
-    private void OnDisable()
-    {
-        playableDirector.stopped -= PlayableDirector_stopped;
-    }
-    private void PlayableDirector_stopped(PlayableDirector obj)
-    {
-        Debug.Log("Stopped");
-    }
+    //private void OnEnable()
+    //{
+    //    playableDirector.stopped += PlayableDirector_stopped;
+    //}
+    //private void OnDisable()
+    //{
+    //    playableDirector.stopped -= PlayableDirector_stopped;
+    //}
+    //private void PlayableDirector_stopped(PlayableDirector obj)
+    //{
+    //    Debug.Log("Stopped");
+    //}
 
     // Start is called before the first frame update
     void Start()
@@ -75,19 +79,40 @@ public class GameManager : MonoBehaviour
                 currentLevel = LoadLevel.Garveyard;
                 break;
         }
-        if (currentLevel == LoadLevel.Hallway)
-        {
-            playableDirector.Play();
-        }
-        else
-        {
-            ReInstantiateValues();
-            // playableDirector.Play();
 
-        }
+        //  ReInstantiateValues();
+        // playableDirector.Play();
+        SetLevel();
+        SetEnemies(true);
+        StartCutScene();
+        
         if (audioSource != null)
             audioSource.StopPlay();
         // Invoke("SpawnEnemies", 1f);
+    }
+    void SetLevel()
+    {
+        activeLevel = levelReferences[(int)currentLevel];
+        activeLevel.levelClear = false;
+        activeLevel.levelFailed = false;
+        activeLevel.levelGameObject.SetActive(true);
+        activeLevel.levelDescription = "Reach the <color=red>" + activeLevel.levelScoreLimit + "</color> Score to clear Level";
+        levelDescriptionText.text = activeLevel.levelDescription;
+    }
+    public void StartCutScene()
+    {
+        #region Camera Transform
+        cineCameraTransform.position = currentCutScene.startCameraPos.position;
+        cineCameraTransform.eulerAngles = currentCutScene.startCameraPos.eulerAngles;
+        cineCameraTransform.localScale = currentCutScene.startCameraPos.localScale;
+        #endregion
+        #region Character Transform
+        playableCharacterPos.transform.position = currentCutScene.characterPos.position;
+        playableCharacterPos.transform.eulerAngles = currentCutScene.characterPos.eulerAngles;
+        playableCharacterPos.transform.localScale = currentCutScene.characterPos.localScale;
+        #endregion
+        currentCutScene.playableDirector.Play();
+
     }
     public void InitiateManager()
     {
@@ -96,15 +121,10 @@ public class GameManager : MonoBehaviour
     void ReInstantiateValues()
     {
         mainPlayer.gameObject.GetComponent<Player>().ResetPlayerValues();
-      //  levelWonPanel.SetActive(false);
-        activeLevel = levelReferences[(int)currentLevel];
-        activeLevel.levelClear = false;
-        activeLevel.levelFailed = false;
-        activeLevel.levelGameObject.SetActive(true);
-        activeLevel.levelDescription = "Reach the <color=red>" + activeLevel.levelScoreLimit+ "</color> Score to clear Level";
-        levelDescriptionText.text = activeLevel.levelDescription;
+        //  levelWonPanel.SetActive(false);
+
         mainPlayer.position = activeLevel.playerPosition.position;
-        SetEnemies(true);
+  
     }
     // Update is called once per frame
     void Update()
