@@ -10,16 +10,6 @@ public class SceneManager : Singleton<SceneManager>
         DontDestroyOnLoad(Instance);
     }
     // Start is called before the first frame update
-    void Start()
-    {
-
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-
-    }
     public void LoadMainMenu()
     {
       //  AudioManager.instance.AudioSource.Play();

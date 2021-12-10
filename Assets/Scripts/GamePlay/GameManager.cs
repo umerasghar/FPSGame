@@ -37,7 +37,7 @@ public class GameManager : MonoBehaviour
     TimeLineComponents currentCutScene;
     private void Awake()
     {
-        Debug.Log("AwakeCalled");
+        Time.timeScale = 1f;
         Instance = this;
         if (PlayerPrefs.HasKey("CurrentLevel"))
         {
@@ -126,11 +126,6 @@ public class GameManager : MonoBehaviour
         mainPlayer.position = activeLevel.playerPosition.position;
   
     }
-    // Update is called once per frame
-    void Update()
-    {
-       
-    }
     public void BackToMenu()
     {
        
@@ -212,4 +207,16 @@ public class GameManager : MonoBehaviour
             enemy.gameObject.SetActive(can);
         }
     }
+    public void OnPause(bool can)
+    {
+        if (can)
+        {
+            Time.timeScale = 0f;
+        }
+        else
+        {
+            Time.timeScale = 1f;
+        }
+    }
+
 }
