@@ -47,7 +47,6 @@ public class GameManager : MonoBehaviour
         {
             setLevelIndex = 0;
         }
-
         sceneManager =FindObjectOfType<SceneManager>();
         audioSource = FindObjectOfType<AudioManager>();
         currentCutScene = levelCutscenes[setLevelIndex];

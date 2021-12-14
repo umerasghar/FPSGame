@@ -55,10 +55,6 @@ public class CharacterBase: MonoBehaviour, IDamage
             }
         }
     }
-    public void CheckForDamage()
-    {
-
-    }
     public void CheckCharacterDeath()
     {
         switch (playerType)
